@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +23,7 @@ Route::get('/home', function () {
     return view('home');
 });
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// Route::get('/user', [UserController::class, 'index'])->prefix('admin')->middleware(['auth', 'role:user']);
-
+// Route 1
 Route::controller(UserController::class)
     ->prefix('admin')
     ->middleware(['auth', 'role:superadmin'])
@@ -37,6 +35,16 @@ Route::controller(UserController::class)
         Route::put('user/{id}', 'update');
         Route::delete('/user/{id}', 'destroy');
     });
+
+// Route 2
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth', 'role:superadmin'])
+    ->group(function () {
+        Route::resource('permission', PermissionController::class);
+    });
+
+//EXAMPLE
 
 // Route::name('admin.')
 //     ->prefix('admin')
@@ -50,3 +58,7 @@ Route::controller(UserController::class)
 //     });
 
 // Route::resource('article', 'ArticleController');
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/user', [UserController::class, 'index'])->prefix('admin')->middleware(['auth', 'role:user']);
