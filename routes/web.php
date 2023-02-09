@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,7 @@ Route::prefix('admin')
         Route::resource('role', RoleController::class);
     });
 
+Route::resource('article', ArticleController::class);
 //EXAMPLE
 
 // Route::name('admin.')
